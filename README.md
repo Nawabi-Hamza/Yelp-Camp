@@ -1,5 +1,3 @@
-
-
 # Getting Started with Node App
 
 This project was bootstrapped with [Create Ejs App By Hamza Nawabi].
@@ -19,7 +17,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 You may also see any lint errors in the console.
 
 ### Deployment
-### `node app` fails to minify
+### `node app` 
+
+# Page Result Online 
+Open [https://yelp-camp-2-vn7w.onrender.com/]
 
 ### `Page Result`
 
