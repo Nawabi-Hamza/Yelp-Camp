@@ -166,7 +166,7 @@ app.use((err,req,res,next)=>{
     res.status(status).render('error',{err})
 })
 
-app.listen(process.env.SERVER_PORT,()=>{
-    console.log(`SERVER IS RUNNING IN PORT \u001B[36m${process.env.SERVER_PORT}\u001B[0m`)
+app.listen(3000,()=>{
+    console.log(`SERVER IS RUNNING IN PORT \u001B[36m${3000}\u001B[0m`)
     // console.log(process.env.CLOUDINARY_URL)
 })
