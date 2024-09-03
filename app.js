@@ -22,12 +22,9 @@ const MongoDBStore = require("connect-mongo")(session)
 const app = express()
 
 
-const dbUrl = process.env.MONGO_CONNECTION
+const dbUrl = process.env.MONGO_CONNECTION || "mongodb+srv://localhost:27017/yelp-camp"
 
-mongoose.connect(dbUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+mongoose.connect(dbUrl)
 const db = mongoose.connection;
 db.on('error',console.error.bind(console,"connection error:"))
 db.once("open",()=>{
@@ -45,49 +42,49 @@ app.use(express.json())
 // Mongo injection
 app.use(mongoSanitize({ replaceWith:'_' }))
 // XSS (Cross Site Scripting) we use in schema sanitize-html
-app.use(helmet())
-const scriptSrcUrls = [
-    "https://stackpath.bootstrapcdn.com/",
-    "https://kit.fontawesome.com/",
-    "https://cdnjs.cloudflare.com/",
-    "https://cdn.jsdelivr.net",
-    "https://api.maptiler.com/", // add this
-    "https://cdn.maptiler.com/", // add this
-];
-const styleSrcUrls = [
-    "https://kit-free.fontawesome.com/",
-    "https://stackpath.bootstrapcdn.com/",
-    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css",
-    "https://fonts.googleapis.com/",
-    "https://use.fontawesome.com/",
-    "https://cdn.jsdelivr.net",
-    "https://api.maptiler.com/", // add this
-    "https://cdn.maptiler.com/", // add this
-];
-const connectSrcUrls = [
-    "https://api.maptiler.com/", // add this
-];
-const fontSrcUrl = []
-app.use( helmet.contentSecurityPolicy({
-    directives: {
-        defaultSrc: ["'self'"],
-        connectSrc: ["'self'",...connectSrcUrls],
-        scriptSrc: ["'unsafe-inline'","'self'","'unsafe-eval'",...scriptSrcUrls],
-        styleSrc: ["'self'","'unsafe-inline'",...styleSrcUrls],
-        workerSrc:["'self'",`blob`],
-        objectSrc: [],
-        imgSrc: [
-            "'self'",
-            "blob:",
-            "data:", // add this
-            // "https://cdn.maptiler.com/", // add this
-            "https://api.maptiler.com/",
-            "https://res.cloudinary.com/dskt3xxtq/", // add this
-            "https://images.unsplash.com/",
-            ],
-        fontSrc:["'self'",...fontSrcUrl]
-        },
-}) );
+// app.use(helmet())
+// const scriptSrcUrls = [
+//     "https://stackpath.bootstrapcdn.com/",
+//     "https://kit.fontawesome.com/",
+//     "https://cdnjs.cloudflare.com/",
+//     "https://cdn.jsdelivr.net",
+//     "https://api.maptiler.com/", // add this
+//     "https://cdn.maptiler.com/", // add this
+// ];
+// const styleSrcUrls = [
+//     "https://kit-free.fontawesome.com/",
+//     "https://stackpath.bootstrapcdn.com/",
+//     "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css",
+//     "https://fonts.googleapis.com/",
+//     "https://use.fontawesome.com/",
+//     "https://cdn.jsdelivr.net",
+//     "https://api.maptiler.com/", // add this
+//     "https://cdn.maptiler.com/", // add this
+// ];
+// const connectSrcUrls = [
+//     "https://api.maptiler.com/", // add this
+// ];
+// const fontSrcUrl = []
+// app.use( helmet.contentSecurityPolicy({
+//     directives: {
+//         defaultSrc: ["'self'"],
+//         connectSrc: ["'self'",...connectSrcUrls],
+//         scriptSrc: ["'unsafe-inline'","'self'","'unsafe-eval'",...scriptSrcUrls],
+//         styleSrc: ["'self'","'unsafe-inline'",...styleSrcUrls],
+//         workerSrc:["'self'",`blob`],
+//         objectSrc: [],
+//         imgSrc: [
+//             "'self'",
+//             "blob:",
+//             "data:", // add this
+//             // "https://cdn.maptiler.com/", // add this
+//             "https://api.maptiler.com/",
+//             "https://res.cloudinary.com/dskt3xxtq/", // add this
+//             "https://images.unsplash.com/",
+//             ],
+//         fontSrc:["'self'",...fontSrcUrl]
+//         },
+// }) );
 app.use(express.urlencoded({extended:true}))
 app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname,'public')))
@@ -100,7 +97,7 @@ store.on('error',function(e){
     console.log("SESSION STORE ERROR: "+e)
 })
 const sessionConfig = {
-    store,
+    // store,
     name:'session',
     secret: process.env.SESSION_SECRET,
     resave:false,
