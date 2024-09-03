@@ -13,16 +13,16 @@ Install all dependancies before start.
 Create a new file called `.env` in the root of your project and add the following line to
 before these work you need to create accound in cloudinary , maptiler and install mongodb
 
-PORT=3000
-SESSION_SECRET="Your Secret for session"
-MONGO_CONNECTION="mongodb://localhost:27017/yelp-camp"
+#### PORT=3000
+#### SESSION_SECRET="Your Secret for session"
+#### MONGO_CONNECTION="mongodb://localhost:27017/yelp-camp"
 
-CLOUDINARY_CLOUD_NAME='your cloudinay name'
-CLOUDINARY_KEY='your cloudinary key'
-CLOUDINARY_SECRET='your cloudinary secret'
-CLOUDINARY_URL='your cloudinary url'
+#### CLOUDINARY_CLOUD_NAME='your cloudinay name'
+#### CLOUDINARY_KEY='your cloudinary key'
+#### CLOUDINARY_SECRET='your cloudinary secret'
+#### CLOUDINARY_URL='your cloudinary url'
 
-MAPTILER_API_KEY='your maptiler key'
+#### MAPTILER_API_KEY='your maptiler key'
 
 ### `npm start or nodemon app.js`
 
