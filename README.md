@@ -15,7 +15,7 @@ before these work you need to create accound in cloudinary , maptiler and instal
 
 PORT=3000
 SESSION_SECRET="Your Secret for session"
-MONGO_CONNECTION=mongodb://localhost:27017/yelp-camp
+MONGO_CONNECTION="mongodb://localhost:27017/yelp-camp"
 
 CLOUDINARY_CLOUD_NAME='your cloudinay name'
 CLOUDINARY_KEY='your cloudinary key'
