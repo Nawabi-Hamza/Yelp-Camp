@@ -24,12 +24,15 @@ const app = express()
 
 const dbUrl = process.env.MONGO_CONNECTION
 
-mongoose.connect(dbUrl)
+mongoose.connect(dbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
 const db = mongoose.connection;
 db.on('error',console.error.bind(console,"connection error:"))
 db.once("open",()=>{
-    console.log(`CONNECTED TO \u001B[36m${dbUrl.split('/')[3].toUpperCase()}\u001B[0m`)
-    // console.log(`CONNECTED TO \u001B[36m${dbUrl.split('=')[3].toUpperCase()}\u001B[0m`)
+    // console.log(`CONNECTED TO \u001B[36m${dbUrl.split('/')[3].toUpperCase()}\u001B[0m`)
+    console.log(`CONNECTED TO \u001B[36m${dbUrl.split('=')[3].toUpperCase()}\u001B[0m`)
 })
 
 
@@ -166,7 +169,8 @@ app.use((err,req,res,next)=>{
     res.status(status).render('error',{err})
 })
 
-app.listen(3000,()=>{
-    console.log(`SERVER IS RUNNING IN PORT \u001B[36m${3000}\u001B[0m`)
+const port = process.env.PORT || 3000
+app.listen(port,()=>{
+    console.log(`SERVER IS RUNNING IN PORT \u001B[36m${port}\u001B[0m`)
     // console.log(process.env.CLOUDINARY_URL)
 })
